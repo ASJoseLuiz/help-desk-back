@@ -1,5 +1,5 @@
-import IUserRepository from "../repository/IUserRepository";
 import { inject, injectable } from "tsyringe";
+import IUserRepository from "../repository/IUserRepository";
 
 @injectable()
 export default class DeleteUserService {
