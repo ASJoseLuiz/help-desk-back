@@ -1,8 +1,9 @@
 import { inject, injectable } from "tsyringe";
+import IUserRepository from "./IUserRepository";
+import { PrismaClient, User } from "../../../generated/prisma/client";
 import CreateUserDTO from "../dto/CreateUserDTO";
 import UpdateUserDTO from "../dto/UpdateUserDTO";
-import IUserRepository from "./IUserRepository";
-import { PrismaClient, User } from "../../generated/prisma/client";
+
 
 @injectable()
 export default class UserRepository implements IUserRepository {
