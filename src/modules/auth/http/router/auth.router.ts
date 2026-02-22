@@ -5,11 +5,11 @@ import { authMiddleware } from "../../../../shared/middlewares/AuthMiddleware";
 const authRouter: Router = Router();
 const authController = new AuthController();
 
-authRouter.post("/login", (req, res) => authController.login(req, res))
+authRouter.post("/login", authController.login)
 
 authRouter.use(authMiddleware);
-authRouter.get("/me", (req, res) => authController.me(req, res));
+authRouter.get("/me", authController.me);
 
-authRouter.post("/logout", (req, res) => authController.logout(req, res));
+authRouter.post("/logout", authController.logout);
 
 export default authRouter;

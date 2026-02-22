@@ -1,14 +1,17 @@
 import { Router } from "express";
 import UserController from "../controller/UserController";
+import { validateBody } from "../../../../shared/middlewares/ZodValidation";
+import { createUserSchema } from "../../dto/CreateUserDTO";
+import { updateUserSchema } from "../../dto/UpdateUserDTO";
+
 
 const usersRouter = Router();
-
 const userController = new UserController();
 
-usersRouter.post("/", (req, res) => userController.create(req, res));
-usersRouter.get("/", (req, res) => userController.list(req, res));
-usersRouter.get("/:id", (req, res) => userController.getById(req, res));
-usersRouter.put("/:id", (req, res) => userController.update(req, res));
-usersRouter.delete("/:id", (req, res) => userController.delete(req, res));
+usersRouter.post("/", validateBody(createUserSchema), userController.create);
+usersRouter.get("/", userController.list);
+usersRouter.get("/:id", userController.getById);
+usersRouter.put("/:id", validateBody(updateUserSchema), userController.update);
+usersRouter.delete("/:id", userController.delete);
 
 export default usersRouter;
