@@ -1,6 +1,7 @@
 import GetUserDTO from "../dto/GetUserDTO";
 import { inject, injectable } from "tsyringe";
 import IUserRepository from "../repository/IUserRepository";
+import { AppError } from "../../../shared/errors/AppError";
 
 @injectable()
 export default class GetUserService {
@@ -12,7 +13,7 @@ export default class GetUserService {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
-      throw new Error("User not found");
+      throw new AppError("Usuário não encontrado");
     }
 
     return {

@@ -19,7 +19,7 @@ export class AuthService {
   public async execute(data: LoginDTO): Promise<string | null> {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) {
-      throw new AppError(`Usuário de email ${data.email} não encontrado`);
+      throw new AppError(`Email não existente. Por favor, registre-se`);
     }
 
     const passwordIsValid = compareSync(data.password, user.hash_password);
