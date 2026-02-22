@@ -2,6 +2,7 @@ import CreateUserDTO from "../dto/CreateUserDTO";
 import GetUserDTO from "../dto/GetUserDTO";
 import { inject, injectable } from "tsyringe";
 import IUserRepository from "../repository/IUserRepository";
+import { hash } from "bcryptjs";
 
 @injectable()
 export default class CreateUserService {
@@ -15,7 +16,8 @@ export default class CreateUserService {
     if (userExists) {
       throw new Error("User already exists");
     }
-
+    const hash_password = await hash(data.password, 10);
+    data.password = hash_password;
     const user = await this.userRepository.create(data);
 
     return {
