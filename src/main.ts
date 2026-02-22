@@ -13,9 +13,9 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
-app.use(errorHandler);
 
 app.use(routes);
+app.use(errorHandler); 
 
 app.listen("3333", () => {
   console.log("Server running on port 3333");

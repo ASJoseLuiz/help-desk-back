@@ -3,6 +3,7 @@ import GetUserDTO from "../dto/GetUserDTO";
 import { inject, injectable } from "tsyringe";
 import IUserRepository from "../repository/IUserRepository";
 import { hash } from "bcryptjs";
+import { AppError } from "../../../shared/errors/AppError";
 
 @injectable()
 export default class CreateUserService {
@@ -14,7 +15,7 @@ export default class CreateUserService {
     const userExists = await this.userRepository.findByEmail(data.email);
 
     if (userExists) {
-      throw new Error("User already exists");
+      throw new AppError(`Usuário com email ${data.email} já existe`);
     }
     const hash_password = await hash(data.password, 10);
     data.password = hash_password;
