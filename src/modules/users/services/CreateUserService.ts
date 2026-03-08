@@ -1,9 +1,9 @@
-import CreateUserDTO from "../dto/CreateUserDTO";
 import GetUserDTO from "../dto/GetUserDTO";
 import { inject, injectable } from "tsyringe";
 import IUserRepository from "../repository/IUserRepository";
 import { hash } from "bcryptjs";
 import { AppError } from "../../../shared/errors/AppError";
+import { CreateUserDTO } from "../dto/CreateUserDTO";
 
 @injectable()
 export default class CreateUserService {

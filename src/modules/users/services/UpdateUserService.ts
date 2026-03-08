@@ -1,8 +1,8 @@
-import UpdateUserDTO from "../dto/UpdateUserDTO";
 import GetUserDTO from "../dto/GetUserDTO";
 import { inject, injectable } from "tsyringe";
 import IUserRepository from "../repository/IUserRepository";
 import { AppError } from "../../../shared/errors/AppError";
+import { UpdateUserDTO } from "../dto/UpdateUserDTO";
 
 @injectable()
 export default class UpdateUserService {
