@@ -18,7 +18,7 @@ export default class TicketController {
     const data: CreateTicketDTO = { title, description, status, priority };
     const createTicketService = container.resolve(CreateTicketService);
 
-    const ticket = await createTicketService.execute(data);
+    const ticket = await createTicketService.execute(data, requested_user_id);
 
     return res.status(201).json(ticket);
   }
