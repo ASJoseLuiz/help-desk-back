@@ -13,9 +13,9 @@ export default class UserController {
   constructor() {}
 
   public async create(req: Request, res: Response): Promise<void> {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    const data: CreateUserDTO = { name, email, password };
+    const data: CreateUserDTO = { name, email, password, role };
     const createUserService = container.resolve(CreateUserService);
 
     const user = await createUserService.execute(data);
@@ -40,12 +40,13 @@ export default class UserController {
 
   async update(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     const data: UpdateUserDTO = {
       name,
       email,
       password,
+      role,
     };
 
     const updateUserService = container.resolve(UpdateUserService);
