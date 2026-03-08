@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import CreateUserDTO from "../../dto/CreateUserDTO";
 import CreateUserService from "../../services/CreateUserService";
 import GetUserService from "../../services/GetUserService";
 import ListUsersService from "../../services/ListUsersService";
-import UpdateUserDTO from "../../dto/UpdateUserDTO";
 import UpdateUserService from "../../services/UpdateUserService";
 import DeleteUserService from "../../services/DeleteUserService";
+import { CreateUserDTO } from "../../dto/CreateUserDTO";
+import { UpdateUserDTO } from "../../dto/UpdateUserDTO";
 
 
 export default class UserController {
