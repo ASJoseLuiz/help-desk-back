@@ -5,7 +5,7 @@ import IUserRepository from "../../users/repository/IUserRepository";
 
 
 @injectable()
-export default class GetTicketsService {
+export default class GetUserTicketsService {
   constructor(
     @inject("TicketRepository") private ticketRepository: ITicketRepository,
     @inject("UserRepository") private userRepository: IUserRepository
