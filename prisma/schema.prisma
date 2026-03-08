@@ -38,6 +38,7 @@ model User {
 model Ticket {
   id                String       @id @default(uuid())
   title             String
+  description       String       
   requestedUser     User         @relation(fields: [requestedUserId], references: [id])
   requestedUserId   String
   priority          Priority     @default(LOW)
