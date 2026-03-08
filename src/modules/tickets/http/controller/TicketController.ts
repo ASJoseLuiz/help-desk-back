@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateTicketDTO } from "../../dto/CreateTicketDTO";
 import CreateTicketService from "../../services/CreateTicketService";
-import GetTicketsService from "../../services/GetUserTicketsService";
 import { UpdateTicketDTO } from "../../dto/UpdateTicketDTO";
 import UpdateTicketService from "../../services/UpdateTicketService";
 import DeleteTicketService from "../../services/DeleteTicketService";
+import GetUserTicketsService from "../../services/GetUserTicketsService";
 
 export default class TicketController {
   constructor() {}
@@ -23,7 +23,7 @@ export default class TicketController {
 
   async getTickets(req: Request, res: Response): Promise<Response> {
     const id = req.user.sub;
-    const getTicketsService = container.resolve(GetTicketsService);
+    const getTicketsService = container.resolve(GetUserTicketsService);
     const ticket = await getTicketsService.execute(id);
 
     return res.json(ticket);
