@@ -6,6 +6,7 @@ import { UpdateTicketDTO } from "../../dto/UpdateTicketDTO";
 import UpdateTicketService from "../../services/UpdateTicketService";
 import DeleteTicketService from "../../services/DeleteTicketService";
 import GetUserTicketsService from "../../services/GetUserTicketsService";
+import GetTicketService from "../../services/GetTicketService";
 
 export default class TicketController {
   constructor() {}
@@ -25,6 +26,14 @@ export default class TicketController {
     const id = req.user.sub;
     const getTicketsService = container.resolve(GetUserTicketsService);
     const ticket = await getTicketsService.execute(id);
+
+    return res.json(ticket);
+  }
+
+  async getTicketById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params
+    const getTicketService = container.resolve(GetTicketService);
+    const ticket = await getTicketService.execute(id as string);
 
     return res.json(ticket);
   }
