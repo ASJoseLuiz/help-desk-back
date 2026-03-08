@@ -6,7 +6,6 @@ export const createTicketSchema = z.object({
   description: z.string().optional(),
   priority: z.enum(Priority).optional(),
   status: z.enum(TicketStatus).optional(),
-  requested_user_id: z.uuid()
 });
 
 export type CreateTicketDTO = z.infer<typeof createTicketSchema>;

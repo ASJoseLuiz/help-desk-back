@@ -12,9 +12,10 @@ export default class TicketController {
   constructor() {}
 
   public async create(req: Request, res: Response): Promise<Response> {
-    const { title, description, status, priority, requested_user_id } = req.body;
+    const requested_user_id = req.user.sub;
+    const { title, description, status, priority } = req.body;
 
-    const data: CreateTicketDTO = { title, description, status, priority, requested_user_id };
+    const data: CreateTicketDTO = { title, description, status, priority };
     const createTicketService = container.resolve(CreateTicketService);
 
     const ticket = await createTicketService.execute(data);

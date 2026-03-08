@@ -8,12 +8,12 @@ import { UpdateTicketDTO } from "../dto/UpdateTicketDTO";
 export default class TicketRepository implements ITicketRepository {
   constructor(@inject("PrismaClient") private prisma: PrismaClient) {}
 
-  async create(data: CreateTicketDTO): Promise<Ticket> {
+  async create(data: CreateTicketDTO, user_id: string): Promise<Ticket> {
     return this.prisma.ticket.create({
       data: {
         title: data.title,
         description: data.description || '',
-        requestedUserId: data.requested_user_id,
+        requestedUserId: user_id,
         priority: data.priority,
         status: data.status
       },
