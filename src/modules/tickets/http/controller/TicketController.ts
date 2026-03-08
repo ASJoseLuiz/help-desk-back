@@ -7,7 +7,7 @@ import { UpdateTicketDTO } from "../../dto/UpdateTicketDTO";
 import UpdateTicketService from "../../services/UpdateTicketService";
 import DeleteTicketService from "../../services/DeleteTicketService";
 
-export default class UserController {
+export default class TicketController {
   constructor() {}
 
   public async create(req: Request, res: Response): Promise<Response> {
