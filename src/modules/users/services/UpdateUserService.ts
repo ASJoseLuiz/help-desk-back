@@ -28,6 +28,7 @@ export default class UpdateUserService {
       id: updatedUser.id,
       name: updatedUser.name,
       email: updatedUser.email,
+      role: updatedUser.role,
       createdAt: updatedUser.createdAt.toISOString(),
     };
   }
