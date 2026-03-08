@@ -10,7 +10,7 @@ export default class CreateTicketService {
     @inject("TicketRepository") private ticketRepository: ITicketRepository,
   ) {}
 
-  async execute(data: CreateTicketDTO): Promise<Ticket> {
-    return this.ticketRepository.create(data);
+  async execute(data: CreateTicketDTO, user_id: string): Promise<Ticket> {
+    return this.ticketRepository.create(data, user_id);
   }
 }
