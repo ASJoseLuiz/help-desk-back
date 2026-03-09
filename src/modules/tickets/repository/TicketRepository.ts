@@ -1,22 +1,28 @@
 import { inject, injectable } from "tsyringe";
-import { PrismaClient, Ticket } from "../../../generated/prisma/client";
+import { PrismaClient, Ticket, TicketStatus } from "../../../generated/prisma/client";
 import ITicketRepository from "./ITicketsRepository";
 import { CreateTicketDTO } from "../dto/CreateTicketDTO";
 import { UpdateTicketDTO } from "../dto/UpdateTicketDTO";
+import { generateTicketCode } from "../../../shared/lib/generateCode";
 
 @injectable()
 export default class TicketRepository implements ITicketRepository {
   constructor(@inject("PrismaClient") private prisma: PrismaClient) {}
 
   async create(data: CreateTicketDTO, user_id: string): Promise<Ticket> {
+    const id = crypto.randomUUID();
+    const code = generateTicketCode(id);
+  
     return this.prisma.ticket.create({
       data: {
+        id,
+        code,
         title: data.title,
-        description: data.description || '',
+        description: data.description || "",
         requestedUserId: user_id,
         priority: data.priority,
         status: data.status
-      },
+      }
     });
   }
 
@@ -31,11 +37,26 @@ export default class TicketRepository implements ITicketRepository {
       where: {
         requestedUserId: user_id,
       },
+      include: {
+        requestedUser: {
+          select: {
+            name: true
+          }
+        }
+      }
     });
   }
 
-  async findAll(): Promise<Ticket[]> {
-    return this.prisma.ticket.findMany();
+  async findAll() {
+    return this.prisma.ticket.findMany({
+      include: {
+        requestedUser: {
+          select: {
+            name: true
+          }
+        }
+      }
+    });
   }
 
   async update(id: string, data: UpdateTicketDTO): Promise<Ticket> {
@@ -56,5 +77,18 @@ export default class TicketRepository implements ITicketRepository {
     await this.prisma.ticket.delete({
       where: { id },
     });
+  }
+
+  async countByUser(user_id: string, status: TicketStatus): Promise<number> {
+    return this.prisma.ticket.count({
+      where: {
+        status,
+        requestedUserId: user_id
+      }
+    });
+  }
+
+  async count(status: TicketStatus): Promise<number> {
+    return await this.prisma.ticket.count({where: { status }})
   }
 }
