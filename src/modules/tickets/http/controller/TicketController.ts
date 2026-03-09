@@ -62,7 +62,6 @@ export default class TicketController {
   }
 
   async dashboard(req: Request, res: Response): Promise<Response> {
-    console.log("teste")
     const id = req.user.sub;
     const getDashboardService = container.resolve(GetDashboardService);
     const result = await getDashboardService.execute(id as string);
