@@ -7,10 +7,42 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  DONE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
 model User {
-  id              String   @id @default(uuid())
-  name            String
-  email           String   @unique
-  hash_password   String
-  createdAt       DateTime @default(now())
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  hash_password String
+  role          Role     @default(CLIENT)
+  createdAt     DateTime @default(now())
+
+  tickets       Ticket[]
+}
+
+model Ticket {
+  id                String       @id @default(uuid())
+  code              Int       @unique
+  title             String
+  description       String       
+  requestedUser     User         @relation(fields: [requestedUserId], references: [id])
+  requestedUserId   String
+  priority          Priority     @default(LOW)
+  status            TicketStatus @default(OPEN)
+  createdAt         DateTime     @default(now())
 }

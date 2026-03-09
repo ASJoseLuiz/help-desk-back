@@ -1,9 +1,8 @@
 import { inject, injectable } from "tsyringe";
 import IUserRepository from "./IUserRepository";
 import { PrismaClient, User } from "../../../generated/prisma/client";
-import CreateUserDTO from "../dto/CreateUserDTO";
-import UpdateUserDTO from "../dto/UpdateUserDTO";
-
+import { CreateUserDTO } from "../dto/CreateUserDTO";
+import { UpdateUserDTO } from "../dto/UpdateUserDTO";
 
 @injectable()
 export default class UserRepository implements IUserRepository {
@@ -15,6 +14,7 @@ export default class UserRepository implements IUserRepository {
         name: data.name,
         email: data.email,
         hash_password: data.password,
+        role: data.role
       },
     });
   }
@@ -41,6 +41,7 @@ export default class UserRepository implements IUserRepository {
     if (data.name) updateData.name = data.name;
     if (data.email) updateData.email = data.email;
     if (data.password) updateData.hash_password = data.password;
+    if (data.role) updateData.role = data.role;
 
     return this.prisma.user.update({
       where: { id },
