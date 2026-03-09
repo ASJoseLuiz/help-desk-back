@@ -11,6 +11,7 @@ ticketRouter.use(authMiddleware);
 
 ticketRouter.post("/", validateBody(createTicketSchema), ticketController.create);
 ticketRouter.get("/", ticketController.getTickets);
+ticketRouter.get("/dashboard", ticketController.dashboard);
 ticketRouter.get("/:id", ticketController.getTicketById);
 ticketRouter.put("/:id", validateBody(updateTicketSchema), ticketController.update);
 ticketRouter.delete("/:id", ticketController.delete);
