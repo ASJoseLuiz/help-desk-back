@@ -15,6 +15,7 @@ enum Role {
 enum TicketStatus {
   OPEN
   IN_PROGRESS
+  PENDING
   DONE
 }
 
