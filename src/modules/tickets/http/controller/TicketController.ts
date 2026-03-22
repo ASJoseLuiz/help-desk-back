@@ -33,7 +33,7 @@ export default class TicketController {
   }
 
   async getTicketById(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params
+    const { id } = req.params;
     const getTicketService = container.resolve(GetTicketService);
     const ticket = await getTicketService.execute(id as string);
 
@@ -42,9 +42,16 @@ export default class TicketController {
 
   async update(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { title, description, status, priority, requested_user_id } = req.body;
+    const { title, description, status, priority, requested_user_id } =
+      req.body;
 
-    const data: UpdateTicketDTO = { title, description, status, priority, requested_user_id }
+    const data: UpdateTicketDTO = {
+      title,
+      description,
+      status,
+      priority,
+      requested_user_id,
+    };
 
     const updateTicketService = container.resolve(UpdateTicketService);
 
@@ -58,7 +65,7 @@ export default class TicketController {
     const deleteTicketService = container.resolve(DeleteTicketService);
     await deleteTicketService.execute(id as string);
 
-    return res.status(204);
+    return res.status(204).send();
   }
 
   async dashboard(req: Request, res: Response): Promise<Response> {
