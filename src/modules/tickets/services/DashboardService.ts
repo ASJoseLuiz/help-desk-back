@@ -34,7 +34,7 @@ export default class GetDashboardService {
     let chamadosResolvidos: number;
     let tickets: Ticket[];
 
-    if (user.role === Role.ADMIN) {
+    if (user.role === Role.ADMIN || user.role === Role.SUPPORT) {
 
       chamadosAbertos = await this.ticketRepository.count(TicketStatus.OPEN);
 
